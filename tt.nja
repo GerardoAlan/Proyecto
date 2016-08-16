@@ -1,0 +1,30 @@
+{
+  "mainFile": "C:/Users/Gerardo Alan/Dropbox/TT/TT/TT/__init__.py", 
+  "use-tabs": true, 
+  "venv": "", 
+  "relatedProjects": [], 
+  "name": "TT", 
+  "license": "GNU General Public License v3", 
+  "url": "", 
+  "pythonPath": "C:/Users/Gerardo Alan/Anaconda2/python.exe", 
+  "preExecScript": "", 
+  "additional_builtins": [], 
+  "programParams": "", 
+  "indentation": 4, 
+  "PYTHONPATH": "", 
+  "supported-extensions": [
+    ".py", 
+    ".html", 
+    ".jpg", 
+    ".png", 
+    ".ui", 
+    ".css", 
+    ".json", 
+    ".js", 
+    ".ini", 
+    ".txt"
+  ], 
+  "project-type": "", 
+  "postExecScript": "", 
+  "description": "Avance del TT ya con la FFT"
+}
