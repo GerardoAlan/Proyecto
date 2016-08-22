@@ -31,7 +31,8 @@ class MagnitudFase(object):
         return self.arregloFase
     
         
-x = [1,-1,2,1,3,-1,4,1,1,2]
+x = [2895619.49722,5512314.88691,972175.874285,992180.162218,147936.025896,127221.751186,70480.911805,43553.6303947,360158.212539,149046.031754,260626.672003,107456.546279,140477.36186,70089.9293876,134124.038473,81637.5946518,-629.167923139,-688.713026933,-81.9627287239,-403.681893567]
 mf = MagnitudFase(x)
-print mf.obtenerMagnitud()
-print mf.obtenerFase()
+print "Arreglo de entrada: " + str(x)
+print "Magnitud: " + str(mf.obtenerMagnitud())
+print "Fase: " + str(mf.obtenerFase())
