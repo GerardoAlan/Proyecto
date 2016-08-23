@@ -5,17 +5,6 @@ import TransformadaRapidaFourier
 import matplotlib.pyplot as plt
 import numpy as np
 
-# El arreglo de los datos de entrada (Canales de la diadema)
-arreglo = [1,2,3]
-
-FFT = TransformadaRapidaFourier.TransformadaRapidaFourier(arreglo = arreglo)
-# Arreglo con componente real e imaginario
-transformada = FFT.obtenerTransformada()
-# Arreglo del eje real
-ejeReal = FFT.obtenerEjeReal()
-# Arreglo del eje imaginarioGG
-ejeImaginario = FFT.obtenerEjeImaginario()
-
 def generarFFT(rutaOrigen, rutaDestino, nombre):
 	archivoLectura = open(rutaOrigen + nombre, "r")
 	lineas = archivoLectura.readlines()

@@ -6,7 +6,7 @@ class QuickSort():
 	def __init__(self,arreglo=None):
 		self.iniciarQS(arreglo)
 		
-	def partirArreglo(self, arreglo,p,q):
+	def partirArreglo(self,arreglo,p,q):
 		x = arreglo[p]
 		i = p
 		for w in xrange(i+1,q):
