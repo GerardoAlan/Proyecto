@@ -41,6 +41,12 @@ def generarMagnitudFase(rutaOrigen, rutaDestino, nombre):
 		highbeta.append(elementos[11])
 		lowgamma.append(elementos[12])
 		lowgamma.append(elementos[13])
+		midgamma.append(elementos[14])
+		midgamma.append(elementos[15])
+		meditation.append(elementos[16])
+		meditation.append(elementos[17])
+		attention.append(elementos[18])
+		attention.append(elementos[19])
 		
 	# Procedemos a obtener la Magnitud y la Fase de dichos valores utilizando la clase GeneradorMagnitudFase
 	
@@ -91,6 +97,25 @@ def generarMagnitudFase(rutaOrigen, rutaDestino, nombre):
 	faseLowgamma = MF.obtenerFase()
 	magnitudLowgamma = MF.obtenerMagnitud()
 	faseLowgamma,magnitudLowgamma = ordenarFase(faseLowgamma, magnitudLowgamma)
+	
+	# Canal Midgamma
+	MF = MagnitudFase.MagnitudFase(arreglo = midgamma)
+	faseMidgamma = MF.obtenerFase()
+	magnitudMidgamma = MF.obtenerMagnitud()
+	faseMidgamma,magnitudMidgamma = ordenarFase(faseMidgamma, magnitudMidgamma)
+
+	# Canal Meditation
+	MF = MagnitudFase.MagnitudFase(arreglo = meditation)
+	faseMeditation = MF.obtenerFase()
+	magnitudMeditation = MF.obtenerMagnitud()
+	faseMeditation,magnitudMeditation = ordenarFase(faseMeditation, magnitudMeditation)
+
+	# Canal Attention
+	MF = MagnitudFase.MagnitudFase(arreglo = attention)
+	faseAttention = MF.obtenerFase()
+	magnitudAttention = MF.obtenerMagnitud()
+	faseAttention,magnitudAttention = ordenarFase(faseAttention, magnitudAttention)
+		
 		
 	# Para obtener las longitudes de cada Fase
 	longitudDelta = len(faseDelta)
@@ -100,8 +125,11 @@ def generarMagnitudFase(rutaOrigen, rutaDestino, nombre):
 	longitudLowbeta = len(faseLowbeta)
 	longitudHighbeta = len(faseHighbeta)
 	longitudLowgamma = len(faseLowgamma)
+	longitudMidgamma = len(faseMidgamma)
+	longitudMeditation = len(faseMeditation)
+	longitudAttention = len(faseAttention)
 	
-	longitudMaxima = calcularLongitudMaxima(longitudDelta,longitudTheta,longitudLowalpha,longitudHighalpha,longitudLowbeta,longitudHighbeta,longitudLowgamma)	
+	longitudMaxima = calcularLongitudMaxima(longitudDelta,longitudTheta,longitudLowalpha,longitudHighalpha,longitudLowbeta,longitudHighbeta,longitudLowgamma,longitudMidgamma,longitudMeditation,longitudAttention)	
 	
 	# Abrimos un archivo para escribir la Magnitud y Fase obtenidos para cada canal
 	archivoEscritura = open(rutaDestino + nombre, "w")
@@ -114,7 +142,10 @@ def generarMagnitudFase(rutaOrigen, rutaDestino, nombre):
 		linea += crearLinea(x, longitudLowbeta, magnitudLowbeta, faseLowbeta)
 		linea += crearLinea(x, longitudHighbeta, magnitudHighbeta, faseHighbeta)
 		linea += crearLinea(x, longitudLowgamma, magnitudLowgamma, faseLowgamma)
-		
+		linea += crearLinea(x, longitudMidgamma, magnitudMidgamma, faseMidgamma)
+		linea += crearLinea(x, longitudMeditation, magnitudMeditation, faseMeditation)
+		linea += crearLinea(x, longitudAttention, magnitudAttention, faseAttention)
+
 		linea += "\n"
 		
 		archivoEscritura.write(linea)
@@ -122,7 +153,7 @@ def generarMagnitudFase(rutaOrigen, rutaDestino, nombre):
 	archivoEscritura.close()
 
 # Metodo para obtener el arreglo mas largo
-def calcularLongitudMaxima(longitudDelta, longitudTheta, longitudLowalpha, longitudHighalpha, longitudLowbeta, longitudHighbeta, longitudLowgamma):
+def calcularLongitudMaxima(longitudDelta, longitudTheta, longitudLowalpha, longitudHighalpha, longitudLowbeta, longitudHighbeta, longitudLowgamma, longitudMidgamma, longitudMeditation, longitudAttention):
 	longitudMaxima = longitudDelta
 	if longitudTheta > longitudMaxima:
 		longitudMaxima = longitudTheta
@@ -136,7 +167,13 @@ def calcularLongitudMaxima(longitudDelta, longitudTheta, longitudLowalpha, longi
 		longitudMaxima = longitudHighbeta
 	if longitudLowgamma > longitudMaxima:
 		longitudMaxima = longitudLowgamma
-	
+	if longitudMidgamma > longitudMaxima:
+		longitudMaxima = longitudMidgamma
+	if longitudMeditation > longitudMaxima:
+		longitudMaxima = longitudMeditation
+	if longitudAttention > longitudMaxima:
+		longitudMaxima = longitudAttention
+		
 	return longitudMaxima
 
 # Metodo que evalua si el canal aun puede escribir el dato, en cuyo caso lo obtiene de los arreglos y lo retorna
@@ -201,15 +238,14 @@ def crearGraficaMagnitudFase(rutaOrigen, rutaDestino, nombre):
 	highbetaFase = []
 	lowgammaMagnitud = []
 	lowgammaFase = []
-	
-	midgammaReal = []
-	midgammaImag = []
+	midgammaMagnitud = []
+	midgammaFase = []
 
 	# Datos Adicionales
-	meditationReal = []
-	meditationImag = []
-	attentionReal = []
-	attentionImag = []
+	meditationMagnitud = []
+	meditationFase = []
+	attentionMagnitud = []
+	attentionFase = []
 
 	for linea in lineas:
 		elementos = linea.split(',')
@@ -234,6 +270,15 @@ def crearGraficaMagnitudFase(rutaOrigen, rutaDestino, nombre):
 		if elementos[12] != " ":
 			lowgammaMagnitud.append(elementos[12])
 			lowgammaFase.append(elementos[13])
+		if elementos[14] != " ":
+			midgammaMagnitud.append(elementos[14])
+			midgammaFase.append(elementos[15])	
+		if elementos[16] != " ":
+			meditationMagnitud.append(elementos[16])
+			meditationFase.append(elementos[17])	
+		if elementos[18] != " ":
+			attentionMagnitud.append(elementos[18])
+			attentionFase.append(elementos[19])	
 			
 	# Para quitarle al nombre el .txt del final	
 	nombre = nombre[:len(nombre)-4]
@@ -314,36 +359,37 @@ def crearGraficaMagnitudFase(rutaOrigen, rutaDestino, nombre):
 	plt.title('Magnitud y Fase Canal Lowgamma')
 	plt.xlabel(u'Fase (0, π)')
 	plt.ylabel(u'Magnitud')
-				
-	'''
-	# Grafica de canal MidGamma
+
+	# Grafica de canal Midgamma
 	plt.subplot(3,3,8)
-	plt.plot(midgammaReal,midgammaImag)
-	# Limitar los valores de los ejes
-	#plt.xlim(0, xlimite)
+	plt.plot(midgammaFase, midgammaMagnitud)
+	# Configurar grafica
+	plt.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
 	plt.axhline(0, color="black")
 	plt.axvline(0, color="black")
-	plt.title('FFT Canal MidGamma')
-	plt.xlabel(u'Frecuencia Hz')
+	plt.title('Magnitud y Fase Canal Midgamma')
+	plt.xlabel(u'Fase (0, π)')
 	plt.ylabel(u'Magnitud')
+
 
 	# Grafica de atencion y meditacion
 	plt.subplot(3,3,9)
-	plt.plot(meditationReal,meditationImag, 'b-' ,label=u"Meditation")
-	plt.plot(attentionReal,attentionImag, 'g',label= u"Attention")
+	plt.plot(meditationFase,meditationMagnitud, 'b-' ,label=u"Meditation")
+	plt.plot(attentionFase,attentionMagnitud, 'g',label= u"Attention")
 	#plt.plot(x, [poorSignal[i] for i in x], 'r' , label=u"PoorSignal")
 	plt.legend(shadow = True, fancybox= True)
 
 	# Limitar los valores de los ejes.
-	#plt.xlim(0, xlimite)
-
+	plt.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
+	
 	# Establecer el color de los ejes.
 	plt.axhline(0, color="black")
 	plt.axvline(0, color="black")
-	plt.title('FFT Datos Adicionales')
-	plt.xlabel(u'Frecuencia Hz')
+	plt.title('Magnitud y Fase Datos Adicionales')
+	plt.xlabel(u'Fase (0, π)')
 	plt.ylabel(u'Magnitud')
-	'''
+
+				
 	# Mostramos en pantalla
 	manager = plt.get_current_fig_manager()
 	manager.window.showMaximized()
@@ -353,7 +399,7 @@ def crearGraficaMagnitudFase(rutaOrigen, rutaDestino, nombre):
 	plt.show()
 
 
-generarMagnitudFase("MuestrasTransformadas/","MuestrasMagnitudFase/",u"Miguel_Romero_GutiérrezRelajante.txt")
-crearGraficaMagnitudFase("MuestrasMagnitudFase/","GraficasMagnitudFase/",u"Miguel_Romero_GutiérrezRelajante.txt")
+generarMagnitudFase("MuestrasTransformadas/","MuestrasMagnitudFase/",u"Brian Rafael_Campos_MirandaEstres.txt")
+crearGraficaMagnitudFase("MuestrasMagnitudFase/","GraficasMagnitudFase/",u"Brian Rafael_Campos_MirandaEstres.txt")
 
 
