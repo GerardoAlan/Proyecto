@@ -3,7 +3,7 @@
 
 import MagnitudFase
 import QuickSort
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plotMF
 import numpy as np
 
 def generarMagnitudFase(rutaOrigen, rutaDestino, nombre):
@@ -284,119 +284,119 @@ def crearGraficaMagnitudFase(rutaOrigen, rutaDestino, nombre):
 	nombre = nombre[:len(nombre)-4]
 	
 	# Grafica de canal Delta
-	plt.subplot(3,3,1)
-	plt.plot(deltaFase, deltaMagnitud)
+	plotMF.subplot(3,3,1)
+	plotMF.plot(deltaFase, deltaMagnitud)
 	# Configurar grafica
-	plt.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
-	plt.axhline(0, color="black")
-	plt.axvline(0, color="black")
-	plt.title('Magnitud y Fase Canal Delta')
-	plt.xlabel(u'Fase (0, π)')
-	plt.ylabel(u'Magnitud')
+	plotMF.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
+	plotMF.axhline(0, color="black")
+	plotMF.axvline(0, color="black")
+	plotMF.title('Magnitud y Fase Canal Delta')
+	plotMF.xlabel(u'Fase (0, π)')
+	plotMF.ylabel(u'Magnitud')
 	
 	# Grafica de canal Theta
-	plt.subplot(3,3,2)
-	plt.plot(thetaFase, thetaMagnitud)
+	plotMF.subplot(3,3,2)
+	plotMF.plot(thetaFase, thetaMagnitud)
 	# Configurar grafica
-	plt.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
-	plt.axhline(0, color="black")
-	plt.axvline(0, color="black")
-	plt.title('Magnitud y Fase Canal Theta')
-	plt.xlabel(u'Fase (0, π)')
-	plt.ylabel(u'Magnitud')
+	plotMF.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
+	plotMF.axhline(0, color="black")
+	plotMF.axvline(0, color="black")
+	plotMF.title('Magnitud y Fase Canal Theta')
+	plotMF.xlabel(u'Fase (0, π)')
+	plotMF.ylabel(u'Magnitud')
 
 	# Grafica de canal Lowalpha
-	plt.subplot(3,3,3)
-	plt.plot(lowalphaFase, lowalphaMagnitud)
+	plotMF.subplot(3,3,3)
+	plotMF.plot(lowalphaFase, lowalphaMagnitud)
 	# Configurar grafica
-	plt.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
-	plt.axhline(0, color="black")
-	plt.axvline(0, color="black")
-	plt.title('Magnitud y Fase Canal Lowalpha')
-	plt.xlabel(u'Fase (0, π)')
-	plt.ylabel(u'Magnitud')
+	plotMF.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
+	plotMF.axhline(0, color="black")
+	plotMF.axvline(0, color="black")
+	plotMF.title('Magnitud y Fase Canal Lowalpha')
+	plotMF.xlabel(u'Fase (0, π)')
+	plotMF.ylabel(u'Magnitud')
 
 	# Grafica de canal Highalpha
-	plt.subplot(3,3,4)
-	plt.plot(highalphaFase, highalphaMagnitud)
+	plotMF.subplot(3,3,4)
+	plotMF.plot(highalphaFase, highalphaMagnitud)
 	# Configurar grafica
-	plt.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
-	plt.axhline(0, color="black")
-	plt.axvline(0, color="black")
-	plt.title('Magnitud y Fase Canal Highalpha')
-	plt.xlabel(u'Fase (0, π)')
-	plt.ylabel(u'Magnitud')
+	plotMF.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
+	plotMF.axhline(0, color="black")
+	plotMF.axvline(0, color="black")
+	plotMF.title('Magnitud y Fase Canal Highalpha')
+	plotMF.xlabel(u'Fase (0, π)')
+	plotMF.ylabel(u'Magnitud')
 
 	# Grafica de canal Lowbeta
-	plt.subplot(3,3,5)
-	plt.plot(lowbetaFase, lowbetaMagnitud)
+	plotMF.subplot(3,3,5)
+	plotMF.plot(lowbetaFase, lowbetaMagnitud)
 	# Configurar grafica
-	plt.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
-	plt.axhline(0, color="black")
-	plt.axvline(0, color="black")
-	plt.title('Magnitud y Fase Canal Lowbeta')
-	plt.xlabel(u'Fase (0, π)')
-	plt.ylabel(u'Magnitud')
+	plotMF.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
+	plotMF.axhline(0, color="black")
+	plotMF.axvline(0, color="black")
+	plotMF.title('Magnitud y Fase Canal Lowbeta')
+	plotMF.xlabel(u'Fase (0, π)')
+	plotMF.ylabel(u'Magnitud')
 
 	# Grafica de canal Highbeta
-	plt.subplot(3,3,6)
-	plt.plot(highbetaFase, highbetaMagnitud)
+	plotMF.subplot(3,3,6)
+	plotMF.plot(highbetaFase, highbetaMagnitud)
 	# Configurar grafica
-	plt.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
-	plt.axhline(0, color="black")
-	plt.axvline(0, color="black")
-	plt.title('Magnitud y Fase Canal Highbeta')
-	plt.xlabel(u'Fase (0, π)')
-	plt.ylabel(u'Magnitud')
+	plotMF.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
+	plotMF.axhline(0, color="black")
+	plotMF.axvline(0, color="black")
+	plotMF.title('Magnitud y Fase Canal Highbeta')
+	plotMF.xlabel(u'Fase (0, π)')
+	plotMF.ylabel(u'Magnitud')
 
 	# Grafica de canal Lowgamma
-	plt.subplot(3,3,7)
-	plt.plot(lowgammaFase, lowgammaMagnitud)
+	plotMF.subplot(3,3,7)
+	plotMF.plot(lowgammaFase, lowgammaMagnitud)
 	# Configurar grafica
-	plt.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
-	plt.axhline(0, color="black")
-	plt.axvline(0, color="black")
-	plt.title('Magnitud y Fase Canal Lowgamma')
-	plt.xlabel(u'Fase (0, π)')
-	plt.ylabel(u'Magnitud')
+	plotMF.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
+	plotMF.axhline(0, color="black")
+	plotMF.axvline(0, color="black")
+	plotMF.title('Magnitud y Fase Canal Lowgamma')
+	plotMF.xlabel(u'Fase (0, π)')
+	plotMF.ylabel(u'Magnitud')
 
 	# Grafica de canal Midgamma
-	plt.subplot(3,3,8)
-	plt.plot(midgammaFase, midgammaMagnitud)
+	plotMF.subplot(3,3,8)
+	plotMF.plot(midgammaFase, midgammaMagnitud)
 	# Configurar grafica
-	plt.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
-	plt.axhline(0, color="black")
-	plt.axvline(0, color="black")
-	plt.title('Magnitud y Fase Canal Midgamma')
-	plt.xlabel(u'Fase (0, π)')
-	plt.ylabel(u'Magnitud')
+	plotMF.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
+	plotMF.axhline(0, color="black")
+	plotMF.axvline(0, color="black")
+	plotMF.title('Magnitud y Fase Canal Midgamma')
+	plotMF.xlabel(u'Fase (0, π)')
+	plotMF.ylabel(u'Magnitud')
 
 
 	# Grafica de atencion y meditacion
-	plt.subplot(3,3,9)
-	plt.plot(meditationFase,meditationMagnitud, 'b-' ,label=u"Meditation")
-	plt.plot(attentionFase,attentionMagnitud, 'g',label= u"Attention")
-	#plt.plot(x, [poorSignal[i] for i in x], 'r' , label=u"PoorSignal")
-	plt.legend(shadow = True, fancybox= True)
+	plotMF.subplot(3,3,9)
+	plotMF.plot(meditationFase,meditationMagnitud, 'b-' ,label=u"Meditation")
+	plotMF.plot(attentionFase,attentionMagnitud, 'g',label= u"Attention")
+	#plotMF.plot(x, [poorSignal[i] for i in x], 'r' , label=u"PoorSignal")
+	plotMF.legend(shadow = True, fancybox= True)
 
 	# Limitar los valores de los ejes.
-	plt.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
+	plotMF.xlim(0, 3.2) # limite en x de 0 a 3.2 ya que el mayor es pi
 	
 	# Establecer el color de los ejes.
-	plt.axhline(0, color="black")
-	plt.axvline(0, color="black")
-	plt.title('Magnitud y Fase Datos Adicionales')
-	plt.xlabel(u'Fase (0, π)')
-	plt.ylabel(u'Magnitud')
+	plotMF.axhline(0, color="black")
+	plotMF.axvline(0, color="black")
+	plotMF.title('Magnitud y Fase Datos Adicionales')
+	plotMF.xlabel(u'Fase (0, π)')
+	plotMF.ylabel(u'Magnitud')
 
 				
 	# Mostramos en pantalla
-	manager = plt.get_current_fig_manager()
+	manager = plotMF.get_current_fig_manager()
 	manager.window.showMaximized()
-	plt.tight_layout()
+	plotMF.tight_layout()
 
-	plt.savefig(rutaDestino + nombre + ".png")
-	plt.show()
+	plotMF.savefig(rutaDestino + nombre + ".png")
+	plotMF.show()
 
 
 generarMagnitudFase("MuestrasTransformadas/","MuestrasMagnitudFase/",u"Brian Rafael_Campos_MirandaEstres.txt")

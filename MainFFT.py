@@ -2,7 +2,7 @@
 #-*- coding:utf-8 -*-
 
 import TransformadaRapidaFourier
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plot
 import numpy as np
 
 def generarFFT(rutaOrigen, rutaDestino, nombre):
@@ -144,120 +144,120 @@ def crearGraficaTransformada(rutaOrigen, rutaDestino, nombre):
 	nombre = nombre[:len(nombre)-4]
 	
 	# Grafica de canal Delta
-	plt.subplot(3,3,1)
-	plt.plot(deltaReal, deltaImag)
+	plot.subplot(3,3,1)
+	plot.plot(deltaReal, deltaImag)
 	# Limitar los valores de los ejes.
-	#plt.xlim(0, xlimite)
-	plt.axhline(0, color="black")
-	plt.axvline(0, color="black")
-	plt.title('FFT Canal Delta')
-	plt.xlabel(u'Frecuencia Hz')
-	plt.ylabel(u'Magnitud')
+	#plot.xlim(0, xlimite)
+	plot.axhline(0, color="black")
+	plot.axvline(0, color="black")
+	plot.title('FFT Canal Delta')
+	plot.xlabel(u'Frecuencia Hz')
+	plot.ylabel(u'Magnitud')
 
 	# Grafica de canal Theta
-	plt.subplot(3,3,2)
-	plt.plot(thetaReal,thetaImag)
+	plot.subplot(3,3,2)
+	plot.plot(thetaReal,thetaImag)
 	# Limitar los valores de los ejes.
-	#plt.xlim(0, xlimite)
-	plt.axhline(0, color="black")
-	plt.axvline(0, color="black")
-	plt.title('FFT Canal Theta')
-	plt.xlabel(u'Frecuencia Hz')
-	plt.ylabel(u'Magnitud')
+	#plot.xlim(0, xlimite)
+	plot.axhline(0, color="black")
+	plot.axvline(0, color="black")
+	plot.title('FFT Canal Theta')
+	plot.xlabel(u'Frecuencia Hz')
+	plot.ylabel(u'Magnitud')
 
 	# Grafica de canal Lowalpha
-	plt.subplot(3,3,3)
-	plt.plot(lowalphaReal,lowalphaImag)
+	plot.subplot(3,3,3)
+	plot.plot(lowalphaReal,lowalphaImag)
 	# Limitar los valores de los ejes.
-	#plt.xlim(0, xlimite)
-	plt.axhline(0, color="black")
-	plt.axvline(0, color="black")
-	plt.title('FFT Canal LowAlpha')
-	plt.xlabel(u'Frecuencia Hz')
-	plt.ylabel(u'Magnitud')
+	#plot.xlim(0, xlimite)
+	plot.axhline(0, color="black")
+	plot.axvline(0, color="black")
+	plot.title('FFT Canal LowAlpha')
+	plot.xlabel(u'Frecuencia Hz')
+	plot.ylabel(u'Magnitud')
 
 	# Grafica de canal Highalpha
-	plt.subplot(3,3,4)
-	plt.plot(highalphaReal,highalphaImag)
+	plot.subplot(3,3,4)
+	plot.plot(highalphaReal,highalphaImag)
 	# Limitar los valores de los ejes.
-	#plt.xlim(0, xlimite)
-	plt.axhline(0, color="black")
-	plt.axvline(0, color="black")
-	plt.title('FFT Canal HighAlpha')
-	plt.xlabel(u'Frecuencia Hz')
-	plt.ylabel(u'Magnitud')
+	#plot.xlim(0, xlimite)
+	plot.axhline(0, color="black")
+	plot.axvline(0, color="black")
+	plot.title('FFT Canal HighAlpha')
+	plot.xlabel(u'Frecuencia Hz')
+	plot.ylabel(u'Magnitud')
 
 	# Grafica de canal LowBeta
-	plt.subplot(3,3,5)
-	plt.plot(lowbetaReal,lowbetaImag)
+	plot.subplot(3,3,5)
+	plot.plot(lowbetaReal,lowbetaImag)
 	# Limitar los valores de los ejes.
-	#plt.xlim(0, xlimite)
-	plt.axhline(0, color="black")
-	plt.axvline(0, color="black")
-	plt.title('FFT Canal LowBeta')
-	plt.xlabel(u'Frecuencia Hz')
-	plt.ylabel(u'Magnitud')
+	#plot.xlim(0, xlimite)
+	plot.axhline(0, color="black")
+	plot.axvline(0, color="black")
+	plot.title('FFT Canal LowBeta')
+	plot.xlabel(u'Frecuencia Hz')
+	plot.ylabel(u'Magnitud')
 
 	# Grafica de canal HighBeta
-	plt.subplot(3,3,6)
-	plt.plot(highbetaReal,highbetaImag)
+	plot.subplot(3,3,6)
+	plot.plot(highbetaReal,highbetaImag)
 	# Limitar los valores de los ejes
-	#plt.xlim(0, xlimite)
-	plt.axhline(0, color="black")
-	plt.axvline(0, color="black")
-	plt.title('FFT Canal HighBeta')
-	plt.xlabel(u'Frecuencia Hz')
-	plt.ylabel(u'Magnitud')
+	#plot.xlim(0, xlimite)
+	plot.axhline(0, color="black")
+	plot.axvline(0, color="black")
+	plot.title('FFT Canal HighBeta')
+	plot.xlabel(u'Frecuencia Hz')
+	plot.ylabel(u'Magnitud')
 
 	# Grafica de canal LowGamma
-	plt.subplot(3,3,7)
-	plt.plot(lowgammaReal,lowgammaImag)
+	plot.subplot(3,3,7)
+	plot.plot(lowgammaReal,lowgammaImag)
 	# Limitar los valores de los ejes
-	#plt.xlim(0, xlimite)
-	plt.axhline(0, color="black")
-	plt.axvline(0, color="black")
-	plt.title('FFT Canal LowGamma')
-	plt.xlabel(u'Frecuencia Hz')
-	plt.ylabel(u'Magnitud')
+	#plot.xlim(0, xlimite)
+	plot.axhline(0, color="black")
+	plot.axvline(0, color="black")
+	plot.title('FFT Canal LowGamma')
+	plot.xlabel(u'Frecuencia Hz')
+	plot.ylabel(u'Magnitud')
 
 	# Grafica de canal MidGamma
-	plt.subplot(3,3,8)
-	plt.plot(midgammaReal,midgammaImag)
+	plot.subplot(3,3,8)
+	plot.plot(midgammaReal,midgammaImag)
 	# Limitar los valores de los ejes
-	#plt.xlim(0, xlimite)
-	plt.axhline(0, color="black")
-	plt.axvline(0, color="black")
-	plt.title('FFT Canal MidGamma')
-	plt.xlabel(u'Frecuencia Hz')
-	plt.ylabel(u'Magnitud')
+	#plot.xlim(0, xlimite)
+	plot.axhline(0, color="black")
+	plot.axvline(0, color="black")
+	plot.title('FFT Canal MidGamma')
+	plot.xlabel(u'Frecuencia Hz')
+	plot.ylabel(u'Magnitud')
 
 	# Grafica de atencion y meditacion
-	plt.subplot(3,3,9)
-	plt.plot(meditationReal,meditationImag, 'b-' ,label=u"Meditation")
-	plt.plot(attentionReal,attentionImag, 'g',label= u"Attention")
-	#plt.plot(x, [poorSignal[i] for i in x], 'r' , label=u"PoorSignal")
-	plt.legend(shadow = True, fancybox= True)
+	plot.subplot(3,3,9)
+	plot.plot(meditationReal,meditationImag, 'b-' ,label=u"Meditation")
+	plot.plot(attentionReal,attentionImag, 'g',label= u"Attention")
+	#plot.plot(x, [poorSignal[i] for i in x], 'r' , label=u"PoorSignal")
+	plot.legend(shadow = True, fancybox= True)
 
 	# Limitar los valores de los ejes.
-	#plt.xlim(0, xlimite)
+	#plot.xlim(0, xlimite)
 
 	# Establecer el color de los ejes.
-	plt.axhline(0, color="black")
-	plt.axvline(0, color="black")
-	plt.title('FFT Datos Adicionales')
-	plt.xlabel(u'Frecuencia Hz')
-	plt.ylabel(u'Magnitud')
+	plot.axhline(0, color="black")
+	plot.axvline(0, color="black")
+	plot.title('FFT Datos Adicionales')
+	plot.xlabel(u'Frecuencia Hz')
+	plot.ylabel(u'Magnitud')
 
 	# Mostramos en pantalla
-	manager = plt.get_current_fig_manager()
+	manager = plot.get_current_fig_manager()
 	manager.window.showMaximized()
-	plt.tight_layout()
+	plot.tight_layout()
 
-	plt.savefig(rutaDestino + nombre + ".png")
-	plt.show()
+	plot.savefig(rutaDestino + nombre + ".png")
+	plot.show()
 
 
-#generarFFT("MuestrasFormato/","MuestrasTransformadas/",u"Miguel_Romero_GutiérrezRelajante.txt")
-#crearGraficaTransformada("MuestrasTransformadas/","MuestrasGraficasTransformadas/",u"Miguel_Romero_GutiérrezRelajante.txt")
+generarFFT("MuestrasFormato/","MuestrasTransformadas/",u"Miguel_Romero_GutiérrezRelajante.txt")
+crearGraficaTransformada("MuestrasTransformadas/","GraficasTransformadas/",u"Miguel_Romero_GutiérrezRelajante.txt")
 
 
