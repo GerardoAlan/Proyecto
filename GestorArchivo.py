@@ -3,19 +3,21 @@
 import ThinkGearProtocol
 import logging
 import logging.handlers
+import matplotlib.pyplot as plt
 
 class GestorArchivo:
     def __init__(self):
         self.puerto = 'COM10'
+        self.closeThread = False
     
     # Metodo que almacena los datos en un archivo junto con los datos del usuario
-    def guardarDatos(self, nombre, datosUsuario):
+    def guardarDatosIniciales(self, carpeta, nombre, datosUsuario):
         global packet_log
         packet_log = []
         logging.basicConfig(level=logging.DEBUG)
 
         nombre = str(nombre)
-        archi = open(self.carpeta + nombre + ".txt", 'w')
+        archi = open(carpeta + nombre + ".txt", 'w')
         archi.write(datosUsuario + "\n")
         tg = ThinkGearProtocol.ThinkGearProtocol(self.puerto)
 
@@ -38,15 +40,19 @@ class GestorArchivo:
                 tg.closeSerial()
                 break
 
+    def setCloseThread(self, dato):
+        self.closeThread = dato
+
     # Metodo que almacena los datos en un archivo y se detiene despues de la duracion
-    def guardarDatos(self, nombre):
+    def guardarDatos(self, carpeta, nombre):
         global packet_log
         packet_log = []
         logging.basicConfig(level=logging.DEBUG)
 
         nombre = str(nombre)
-        archi = open(nombre + ".txt", 'w')
-        tg = ThinkGearProtocol.ThinkGearProtocol(puerto)
+        archi = open(carpeta + nombre + ".txt", 'w')
+        
+        tg = ThinkGearProtocol.ThinkGearProtocol(self.puerto)
 
         for pkt in tg.get_packets():
             for powerData in pkt:
@@ -77,7 +83,7 @@ class GestorArchivo:
         primeraLinea = False
 
         lineas = archivoLectura.readlines()
-
+        
         for linea in lineas:
 
             if primeraLinea:
@@ -135,7 +141,7 @@ class GestorArchivo:
 
     # Metodo que crea una grafica de un archivo ya formateado
     def crearGrafica(self, rutaDestino, rutaImagen, nombre):
-        archivoLectura = open(rutaDestino + nombre, "r")
+        archivoLectura = open(rutaDestino + nombre + ".txt", "r")
         lineas = archivoLectura.readlines()
 
         # Canales

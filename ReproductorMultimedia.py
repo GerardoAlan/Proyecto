@@ -4,15 +4,15 @@
 import threading
 import time
 import os
-import sys
+# import sys
 from PyQt4 import QtGui, QtCore
 from PyQt4.phonon import Phonon
-import scipy as sp
-import matplotlib.pyplot as plt
+# import scipy as sp
+# import matplotlib.pyplot as plt
 # import ThinkGearProtocol
 # import logging
 # import logging.handlers
-import numpy as np
+# import numpy as np
 import GestorArchivo
 
 
@@ -27,7 +27,6 @@ class ReproductorMultimedia(QtGui.QWidget):
         self.carpeta = carpeta
         self.carpetaDestino = carpetaDestino
         self.carpetaImagen = carpetaImagen
-
         self.setWindowTitle('Reproductor Multimedia')
         self.media = Phonon.MediaObject(self)
         self.media.stateChanged.connect(self.handleStateChanged)
@@ -42,7 +41,6 @@ class ReproductorMultimedia(QtGui.QWidget):
         layout = QtGui.QVBoxLayout(self)
         layout.addWidget(self.video, 1)
         layout.addWidget(self.button)
-        self.closeThread = False
         self.datos = name
         self.nombreArchivo = archivo
         self.setWindowIcon(QtGui.QIcon('Icon/icon.jpg'))
@@ -53,13 +51,12 @@ class ReproductorMultimedia(QtGui.QWidget):
         if self.media.state() == Phonon.PlayingState:
             # Entra cuando se esta reproduciendo el video
             self.media.stop()
-            self.closeThread = True
+            self.gestorArchivo.setCloseThread(True)
         else:
             # Entra cuando el video no se esta reproduciendo
             self.media.setCurrentSource(Phonon.MediaSource(self.rutaVideo))
             # Se crea el hilo y se ejecuta
-            self.gestorArchivo = GestorArchivo.GestorArchivo()
-            self.t = threading.Thread(target=self.gestorArchivo.guardarDatos, args=(self.nombreArchivo, self.datos, ))
+            self.t = threading.Thread(target=self.gestorArchivo.guardarDatosIniciales, args=(self.carpeta, self.nombreArchivo, self.datos ))
             self.t.start()
             # Se reproduce el video
             self.media.play()
@@ -71,12 +68,12 @@ class ReproductorMultimedia(QtGui.QWidget):
         elif (newstate != Phonon.LoadingState and
               newstate != Phonon.BufferingState):
             self.media.stop()
-            self.closeThread = True
-
+            self.gestorArchivo.setCloseThread(True)
+            time.sleep(1)
             # Crear el archivo con el formato
             self.gestorArchivo.convertirArchivo(self.carpeta, self.carpetaDestino, self.nombreArchivo+".txt")
             # Crear la grafica con el archivo ya formateado
-            self.gestorArchivo.crearGrafica(self.carpetaDestino, self.carpetaImagen, self.nombreArchivo+".txt")
+            self.gestorArchivo.crearGrafica(self.carpetaDestino, self.carpetaImagen, self.nombreArchivo)
 
             self.close()
             
