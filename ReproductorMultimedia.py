@@ -1,21 +1,12 @@
 
 #-*- coding:utf-8 -*-
-
-import threading
-import time
 import os
-# import sys
+import time
+import threading
 from PyQt4 import QtGui, QtCore
 from PyQt4.phonon import Phonon
-# import scipy as sp
-# import matplotlib.pyplot as plt
-# import ThinkGearProtocol
-# import logging
-# import logging.handlers
-# import numpy as np
+
 import GestorArchivo
-
-
 
 class ReproductorMultimedia(QtGui.QWidget):
 
@@ -32,6 +23,7 @@ class ReproductorMultimedia(QtGui.QWidget):
         self.media.stateChanged.connect(self.handleStateChanged)
         self.video = Phonon.VideoWidget(self)
         self.video.setMinimumSize(800, 400)
+        
         self.audio = Phonon.AudioOutput(Phonon.VideoCategory, self)
         Phonon.createPath(self.media, self.audio)
         Phonon.createPath(self.media, self.video)
@@ -56,7 +48,7 @@ class ReproductorMultimedia(QtGui.QWidget):
             # Entra cuando el video no se esta reproduciendo
             self.media.setCurrentSource(Phonon.MediaSource(self.rutaVideo))
             # Se crea el hilo y se ejecuta
-            self.t = threading.Thread(target=self.gestorArchivo.guardarDatosIniciales, args=(self.carpeta, self.nombreArchivo, self.datos ))
+            self.t = threading.Thread(target=self.gestorArchivo.guardarDatosIniciales, args=(self.carpeta, self.nombreArchivo, self.datos))
             self.t.start()
             # Se reproduce el video
             self.media.play()

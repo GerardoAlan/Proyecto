@@ -1,9 +1,9 @@
-#-*- coding:utf-8 -*-
-
-import ThinkGearProtocol
+# -*- coding:utf-8 -*-
 import logging
 import logging.handlers
 import matplotlib.pyplot as plt
+
+import ThinkGearProtocol
 
 class GestorArchivo:
     def __init__(self):
@@ -42,37 +42,6 @@ class GestorArchivo:
 
     def setCloseThread(self, dato):
         self.closeThread = dato
-
-    # Metodo que almacena los datos en un archivo y se detiene despues de la duracion
-    def guardarDatos(self, carpeta, nombre):
-        global packet_log
-        packet_log = []
-        logging.basicConfig(level=logging.DEBUG)
-
-        nombre = str(nombre)
-        archi = open(carpeta + nombre + ".txt", 'w')
-        
-        tg = ThinkGearProtocol.ThinkGearProtocol(self.puerto)
-
-        for pkt in tg.get_packets():
-            for powerData in pkt:
-                if isinstance(powerData, ThinkGearProtocol.ThinkGearEEGPowerData):
-                    archi.write(str(powerData.value))
-            for meditation in pkt:
-                if isinstance(meditation, ThinkGearProtocol.ThinkGearMeditationData):
-                    archi.write("Meditation: " + str(meditation.value) + ", ")
-            for attention in pkt:
-                if isinstance(attention, ThinkGearProtocol.ThinkGearAttentionData):
-                    archi.write("Attention: " + str(attention.value) + ", ")
-            for poorSignal in pkt:
-                if isinstance(poorSignal, ThinkGearProtocol.ThinkGearPoorSignalData):
-                    archi.write("PoorSignal: " + str(poorSignal.value) + "\n")
-
-            if (self.closeThread):
-                archi.close()
-                tg.closeSerial()
-                break
-
     
     # Metodo que le da formato a un archivo de muestreo        
     def convertirArchivo(self, rutaOrigen, rutaDestino, nombre):
@@ -127,9 +96,10 @@ class GestorArchivo:
                 valorAttention = linea[meditationPosicionComa + 13:attentionPosicionComa]
                 nuevaLinea += valorAttention + ","
 
+                poorSignal = int(linea[attentionPosicionComa + 14:])
                 nuevaLinea += linea[attentionPosicionComa + 14:]
 
-                if valorDelta=="0" and valorTheta=="0" and valorLowAlpha=="0" and valorHighAlpha=="0" and valorLowBeta=="0" and valorHighBeta=="0" and valorLowGamma=="0" and valorMidGamma=="0" and valorMeditation=="0" and valorAttention=="0":
+                if valorMeditation == "0" and valorAttention == "0" and poorSignal > 25:
                     pass
                 else:
                     archivoEscritura.write(nuevaLinea)
@@ -166,45 +136,45 @@ class GestorArchivo:
             deltaPosicionComa = linea.find(",")
             delta.append(linea[:deltaPosicionComa])
 
-            thetaPosicionComa = linea.find(",", deltaPosicionComa+1)
-            theta.append(linea[deltaPosicionComa+1:thetaPosicionComa])
+            thetaPosicionComa = linea.find(",", deltaPosicionComa + 1)
+            theta.append(linea[deltaPosicionComa + 1:thetaPosicionComa])
 
-            lowalphaPosicionComa = linea.find(",", thetaPosicionComa+1)
-            lowalpha.append(linea[thetaPosicionComa+1:lowalphaPosicionComa])
+            lowalphaPosicionComa = linea.find(",", thetaPosicionComa + 1)
+            lowalpha.append(linea[thetaPosicionComa + 1:lowalphaPosicionComa])
 
-            highalphaPosicionComa = linea.find(",", lowalphaPosicionComa+1)
-            highalpha.append(linea[lowalphaPosicionComa+1:highalphaPosicionComa])
+            highalphaPosicionComa = linea.find(",", lowalphaPosicionComa + 1)
+            highalpha.append(linea[lowalphaPosicionComa + 1:highalphaPosicionComa])
 
-            lowbetaPosicionComa = linea.find(",", highalphaPosicionComa+1)
-            lowbeta.append(linea[highalphaPosicionComa+1:lowbetaPosicionComa])
+            lowbetaPosicionComa = linea.find(",", highalphaPosicionComa + 1)
+            lowbeta.append(linea[highalphaPosicionComa + 1:lowbetaPosicionComa])
 
-            highbetaPosicionComa = linea.find(",", lowbetaPosicionComa+1)
-            highbeta.append(linea[lowbetaPosicionComa+1:highbetaPosicionComa])
+            highbetaPosicionComa = linea.find(",", lowbetaPosicionComa + 1)
+            highbeta.append(linea[lowbetaPosicionComa + 1:highbetaPosicionComa])
 
-            lowgammaPosicionComa = linea.find(",", highbetaPosicionComa+1)
-            lowgamma.append(linea[highbetaPosicionComa+1:lowgammaPosicionComa])
+            lowgammaPosicionComa = linea.find(",", highbetaPosicionComa + 1)
+            lowgamma.append(linea[highbetaPosicionComa + 1:lowgammaPosicionComa])
 
-            midgammaPosicionComa = linea.find(",", lowgammaPosicionComa+1)
-            midgamma.append(linea[lowgammaPosicionComa+1:midgammaPosicionComa])
+            midgammaPosicionComa = linea.find(",", lowgammaPosicionComa + 1)
+            midgamma.append(linea[lowgammaPosicionComa + 1:midgammaPosicionComa])
 
-            meditationPosicionComa = linea.find(",", midgammaPosicionComa+1)
-            meditation.append(linea[midgammaPosicionComa+1:meditationPosicionComa])
+            meditationPosicionComa = linea.find(",", midgammaPosicionComa + 1)
+            meditation.append(linea[midgammaPosicionComa + 1:meditationPosicionComa])
 
-            attentionPosicionComa = linea.find(",", meditationPosicionComa+1)
-            attention.append(linea[meditationPosicionComa+1:attentionPosicionComa])
+            attentionPosicionComa = linea.find(",", meditationPosicionComa + 1)
+            attention.append(linea[meditationPosicionComa + 1:attentionPosicionComa])
 
-            poorSignalPosicionComa = linea.find(",", attentionPosicionComa+1)
-            poorSignal.append(linea[attentionPosicionComa+1:poorSignalPosicionComa])
+            poorSignalPosicionComa = linea.find(",", attentionPosicionComa + 1)
+            poorSignal.append(linea[attentionPosicionComa + 1:poorSignalPosicionComa])
 
             contador += 1
 
-        xlimite = len(lineas)-1
+        xlimite = len(lineas) - 1
 
         # Creamos el array x de la medida de los datos
         x = range(0, xlimite)
 
         # Grafica de canal Delta
-        plt.subplot(3,3,1)
+        plt.subplot(3, 3, 1)
         plt.plot(x, [delta[i] for i in x])
         # Limitar los valores de los ejes.
         plt.xlim(0, xlimite)
@@ -213,7 +183,7 @@ class GestorArchivo:
         plt.ylabel(u'Representación numerica')
 
         # Grafica de canal Theta
-        plt.subplot(3,3,2)
+        plt.subplot(3, 3, 2)
         plt.plot(x, [theta[i] for i in x])
         # Limitar los valores de los ejes.
         plt.xlim(0, xlimite)
@@ -222,7 +192,7 @@ class GestorArchivo:
         plt.ylabel(u'Representación numerica')
 
         # Grafica de canal Lowalpha
-        plt.subplot(3,3,3)
+        plt.subplot(3, 3, 3)
         plt.plot(x, [lowalpha[i] for i in x])
         # Limitar los valores de los ejes.
         plt.xlim(0, xlimite)
@@ -231,7 +201,7 @@ class GestorArchivo:
         plt.ylabel(u'Representación numerica')
 
         # Grafica de canal Highalpha
-        plt.subplot(3,3,4)
+        plt.subplot(3, 3, 4)
         plt.plot(x, [highalpha[i] for i in x])
         # Limitar los valores de los ejes.
         plt.xlim(0, xlimite)
@@ -240,7 +210,7 @@ class GestorArchivo:
         plt.ylabel(u'Representación numerica')
 
         # Grafica de canal LowBeta
-        plt.subplot(3,3,5)
+        plt.subplot(3, 3, 5)
         plt.plot(x, [lowbeta[i] for i in x])
         # Limitar los valores de los ejes.
         plt.xlim(0, xlimite)
@@ -249,7 +219,7 @@ class GestorArchivo:
         plt.ylabel(u'Representación numerica')
 
         # Grafica de canal HighBeta
-        plt.subplot(3,3,6)
+        plt.subplot(3, 3, 6)
         plt.plot(x, [highbeta[i] for i in x])
         # Limitar los valores de los ejes
         plt.xlim(0, xlimite)
@@ -258,7 +228,7 @@ class GestorArchivo:
         plt.ylabel(u'Representación numerica')
 
         # Grafica de canal LowGamma
-        plt.subplot(3,3,7)
+        plt.subplot(3, 3, 7)
         plt.plot(x, [lowgamma[i] for i in x])
         # Limitar los valores de los ejes
         plt.xlim(0, xlimite)
@@ -267,7 +237,7 @@ class GestorArchivo:
         plt.ylabel(u'Representación numerica')
 
         # Grafica de canal MidGamma
-        plt.subplot(3,3,8)
+        plt.subplot(3, 3, 8)
         plt.plot(x, [midgamma[i] for i in x])
         # Limitar los valores de los ejes
         plt.xlim(0, xlimite)
@@ -277,11 +247,11 @@ class GestorArchivo:
 
         # Grafica de atencion, meditacion y fuerza de la senal
 
-        plt.subplot(3,3,9)
-        plt.plot(x, [meditation[i] for i in x], 'b-' ,label=u"Meditation")
-        plt.plot(x, [attention[i] for i in x], 'g',label= u"Attention")
+        plt.subplot(3, 3, 9)
+        plt.plot(x, [meditation[i] for i in x], 'b-' , label=u"Meditation")
+        plt.plot(x, [attention[i] for i in x], 'g', label=u"Attention")
         plt.plot(x, [poorSignal[i] for i in x], 'r' , label=u"PoorSignal")
-        plt.legend(shadow = True, fancybox= True)
+        plt.legend(shadow=True, fancybox=True)
 
         # Limitar los valores de los ejes.
         plt.xlim(0, xlimite)
@@ -300,4 +270,4 @@ class GestorArchivo:
 
         plt.savefig(rutaImagen + nombre + ".png")
         plt.close()
-        #plt.show()
+        # plt.show()

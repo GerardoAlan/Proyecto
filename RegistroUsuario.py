@@ -1,10 +1,9 @@
 
-#-*- coding:utf-8 -*-
-
+# -*- coding:utf-8 -*-
 import sys
-import MenuUsuario
 from PyQt4 import QtGui
 
+import MenuUsuario
 
 class RegistroUsuario(QtGui.QWidget):
 
@@ -15,15 +14,13 @@ class RegistroUsuario(QtGui.QWidget):
         self.iptApaterno = QtGui.QLineEdit(self)
         self.iptAmaterno = QtGui.QLineEdit(self)
         self.iptCorreoE = QtGui.QLineEdit(self)
-        #self.iptSexo = QtGui.QLineEdit(self)
-        #self.iptEdad = QtGui.QLineEdit(self)
-        #self.iptSemestre = QtGui.QLineEdit(self)
+        self.iptEscuela = QtGui.QLineEdit(self)
         self.tamCombo = 80
         self.initUI()
 
     def initUI(self):
         tamHorizontal = 350
-        tamVertical = 320
+        tamVertical = 355
         self.setFixedSize(tamHorizontal, tamVertical)
         self.setWindowTitle('Registra Usuario')
         self.setWindowIcon(QtGui.QIcon('Icon/icon.jpg'))
@@ -34,7 +31,7 @@ class RegistroUsuario(QtGui.QWidget):
         sizeIpt = 200
 
         itemComboSexo = ["Masculino", "Femenino"]
-        itemComboEdad = ['17','18','19','20','21','22','23','24','25','26','27','28','29','30']
+        itemComboEdad = ['17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
         itemComboSemestre = ['1', '2', '3', '4', '5', '6', '7', '8']
 
         # Nombre
@@ -63,6 +60,13 @@ class RegistroUsuario(QtGui.QWidget):
         lblCorreoE.move(marginLeftLbl, contTopLbl)
         self.iptCorreoE.setMinimumWidth(sizeIpt)
         self.iptCorreoE.move(marginLeftLbl + marginLeftIpt, contTopLbl)
+        contTopLbl += 35
+
+        # Escuela
+        lblEscuela = QtGui.QLabel(u'Escuela:', self)
+        lblEscuela.move(marginLeftLbl, contTopLbl)
+        self.iptEscuela.setMinimumWidth(sizeIpt)
+        self.iptEscuela.move(marginLeftLbl + marginLeftIpt, contTopLbl)
         contTopLbl += 35
 
         # Sexo
@@ -98,7 +102,7 @@ class RegistroUsuario(QtGui.QWidget):
         tamHorizontalBtn = 100
         tamVerticalBtn = 30
         btnAceptar.setMinimumSize(tamHorizontalBtn, tamVerticalBtn)
-        btnAceptar.move(tamHorizontal - tamHorizontalBtn -
+        btnAceptar.move(tamHorizontal - tamHorizontalBtn - 
                         19, tamVertical - tamVerticalBtn - 18)
 
         self.show()
@@ -111,9 +115,10 @@ class RegistroUsuario(QtGui.QWidget):
         edad = str(self.comboEdad.currentText())
         sexo = str(self.comboSexo.currentText())
         semestre = str(self.comboSemestre.currentText())
+        escuela = str((self.iptEscuela.text()).toAscii())
 
         datos = nombre + " " + aPaterno + " " + aMaterno + \
-            " " + correoE + " " + sexo + " " + edad + " " + semestre
+            " " + correoE + " " + sexo + " " + edad + " " + semestre + " " + escuela
         archivo = nombre + "_" + aPaterno + "_" + aMaterno
         nuevaVentana = MenuUsuario.MenuUsuario(name=datos, archivo=archivo)
         self.children.append(nuevaVentana)

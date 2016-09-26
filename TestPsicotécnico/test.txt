@@ -1,0 +1,112 @@
+http://es.testsworld.net/test-psicotecnico-series-numericas.html
+
+1. Pregunta
+Sigue la serie: 27, 19, 34, 26, 41, 33, ?
+Op: 48,52,24,66					Res: 48
+
+2. Pregunta
+Continúa la secuencia: 16, 2, 32, 2, 64, 2, ?
+Op: 128,172,254,196				Res: 128
+
+3. Pregunta
+Sigue la secuencia: 3, 30, 6, 30, 9, 90, ?
+Op: 120,100,12,110				Res: 12
+
+4. Pregunta
+Sigue la secuencia: 3, 6, 9, 12, 15, 18, 21, ?
+Op: 24,25,27,26					Res: 24
+
+5. Pregunta
+Sigue la secuencia: 6, 6, 10, 5, 14, 4, ?
+Op: 18,3,13,16					Res: 18
+
+6. Pregunta
+¿Qué número sigue la secuencia?: 25, 50, 100, 200, 400, ?
+Op: 600,700,800,1600			Res: 800
+
+7. Pregunta
+Sigue la secuencia: 3, 7, 21, 147, 3087, ?
+Op: 453789,354796,673459,534679	Res: 453789
+
+8. Pregunta
+Encuentra el número que sigue la secuencia: 25, 10, 15, 5, 10, ?
+Op: 5,15,0,20					Res: 5
+
+9. Pregunta
+Indica qué par de números siguen la serie: 7, 3, 6, 3, 5, 3, ?, ?
+Op: 3,3 3,4 4,3 1,2				Res: 4,3
+
+10. Pregunta
+Qué número sigue la secuencia: 4, 3, 3, 2, 2, ?
+Op: 4,1,3,2 					Res: 1
+
+11. Pregunta
+Continúa la secuencia: 7, 21, 84 ,420, 2520, ?
+Op: 8820,10080,17640,5040		Res: 17640
+
+12. Pregunta
+Continúa la secuencia: 120, 240, 720, 2880, ?
+Op: 5760,11520,8640,14400		Res: 14400
+
+13. Pregunta
+Sigue la serie: 18, 36, 11, 22, 17, 34, 9, ?
+Op: 15,18,27,36					Res: 18
+
+14. Pregunta
+Continúa la secuencia: 14, 15, 28, 30, 56, ?
+Op: 60,66,58,86 				Res: 60
+
+15. Pregunta
+Sigue la serie: 24, 34, 44, 54, 64, ?
+Op: 74,72,70,71					Res: 74
+
+16. Pregunta
+¿Qué número continúa la serie?: 9, 17, 8, 14, 7, 11, 6, 8, ?
+Op: 10,9,12,5 					Res: 5
+
+17. Pregunta
+Encuentra el número que sigue la secuencia: 2, 6, 12, 36, 72, 216, ?
+Op: 432,420,288,252 			Res: 432 
+
+18. Pregunta
+Sigue la secuencia: 42, 14, 35, 21, 28, 28, ?
+Op: 14,19,21,22 				Res: 21
+
+19. Pregunta
+Indica qué par de números siguen la serie: 52, 53, 55, 58, 62, 67, ? ,?
+Op: 72,79 71,79 73,80 72,75		Res: 73,80
+
+20. Pregunta
+Sigue la serie: (2-4-1), (4-12-4), (?-?-?), (8-40-40)
+Op: (8-24-12),(6-24-12),(6-20-12),(8-24-10)		Res:(6-24-12)
+
+21. Pregunta
+Encuentra el número que sigue la secuencia: 18, 32, 60, 116, 228, ?
+Op: 452,456,624,312				Res: 452
+
+22. Pregunta
+¿Qué número continúa la serie: 6, 3, 8, 4, 10, 5, 12, 6, 14, ?
+Op: 16,8,6,7 					Res: 7
+
+23. Pregunta
+Sigue la secuencia: 3, 21, 147, 1029, ?
+Op: 6300,5200,1703,7203			Res: 7203
+
+24. Pregunta
+En la siguiente serie hay un número equivocado, que no corresponde con la serie. Señala el número que debería ir en su lugar: 5, 10, 12, 24, 26, 28, 54, 108, 110
+Op: 6,48,52,105					Res: 52 
+
+25. Pregunta
+Completa la serie: 4, 8, 11, 7, 14, ?, ?, 26, 29, ?
+Op: 10,14,24 10,20,33 17,13,25 18,14,25 	Res: 17,13,25
+
+
+
+
+
+
+
+
+
+
+

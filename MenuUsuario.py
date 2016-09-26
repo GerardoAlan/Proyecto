@@ -1,23 +1,18 @@
 
-#-*- coding:utf-8 -*-
-import threading
-# import sys
+# -*- coding:utf-8 -*-
 import os
-from PyQt4 import QtGui
-import ReproductorMultimedia
-import CuestionarioEstres
-import CuestionarioPuntuacion
-# import ThinkGearProtocol
-# import subprocess
-# import logging
-# import logging.handlers
 import time
-# import matplotlib.pyplot as plt
-# import numpy as np
-import RegistroUsuario
-import GestorArchivo
+import threading
+from PyQt4 import QtGui
 from gevent.hub import sleep
+from PyQt4.phonon import Phonon
+
+import GestorArchivo
 import TestMatematico
+import RegistroUsuario
+import CuestionarioEstres
+import ReproductorMultimedia
+import CuestionarioPuntuacion
 
 class MenuUsuario(QtGui.QWidget):
 
@@ -32,9 +27,8 @@ class MenuUsuario(QtGui.QWidget):
         self.children = []
         self.datos = name
         self.archivo = archivo
-        # self.rutaVideoEstres = "/Video/videoEstres.wmv"
         self.rutaVideoEstres = "/Video/estres.wmv"
-        self.rutaVideoRelajante = "/Video/videoRelajacion.wmv"
+        self.rutaVideoRelajante = "/Video/relajante.wmv"
         
         self.rutaCuestionarioEstres = "Cuestionario/Estres/"
         self.rutaCuestionarioPuntuacion = "Cuestionario/Puntuacion/"
@@ -64,14 +58,14 @@ class MenuUsuario(QtGui.QWidget):
         contTop = 30
 
         buttonContenidoMultimediaE = QtGui.QPushButton(
-            'Presentar Contenido Estresor', self)
+            'Presentar Video Estresor', self)
         buttonContenidoMultimediaE.clicked.connect(
             self.presentarContenidoMultimediaEstresor)
         buttonContenidoMultimediaE.move(marginLeft, contTop)
         
         contTop += 52
         buttonJuegoEstresante = QtGui.QPushButton(
-            'Presentar Juego Online', self)
+            'Presentar Juego', self)
         buttonJuegoEstresante.clicked.connect(
             self.grabarJuegoEstresante)
         buttonJuegoEstresante.move(marginLeft, contTop)
@@ -83,17 +77,17 @@ class MenuUsuario(QtGui.QWidget):
         buttonTestMatematico.move(marginLeft, contTop)
 
         contTop += 52
-        buttonContenidoMultimediaR = QtGui.QPushButton('Presentar Contenido Relajante', self)
+        buttonContenidoMultimediaR = QtGui.QPushButton('Presentar Video Relajante', self)
         buttonContenidoMultimediaR.clicked.connect(self.presentarContenidoMultimediaRelajante)
         buttonContenidoMultimediaR.move(marginLeft, contTop)
 
         contTop += 52
-        buttonCuestionario = QtGui.QPushButton('Realizar Cuestionario', self)
+        buttonCuestionario = QtGui.QPushButton('Realizar Cuestionario Estres', self)
         buttonCuestionario.clicked.connect(self.presentarCuestionarioEstres)
         buttonCuestionario.move(marginLeft, contTop)
 
         contTop += 52
-        buttonCuestionarioPuntuacion = QtGui.QPushButton('Calificar Estimulos', self)
+        buttonCuestionarioPuntuacion = QtGui.QPushButton(u'Calificar Estímulos', self)
         buttonCuestionarioPuntuacion.clicked.connect(self.presentarCuestionarioPuntuacion)
         buttonCuestionarioPuntuacion.move(marginLeft, contTop)
 
@@ -103,7 +97,7 @@ class MenuUsuario(QtGui.QWidget):
             'Salir', self)
         buttonSalir.clicked.connect(
             self.salirMenuUsuario)
-        buttonSalir.move(marginLeft+180, contTop)
+        buttonSalir.move(marginLeft + 180, contTop)
 
 
         buttonContenidoMultimediaE.setMinimumSize(self.btnWidth, self.btnHigh)
@@ -135,38 +129,52 @@ class MenuUsuario(QtGui.QWidget):
         self.juego.start()
         sleep(1)
         os.chdir(actual)
-        print os.getcwd()
         # Se crea el hilo y se ejecuta
-        self.t = threading.Thread(target=self.gestorArchivo.guardarDatos, args=(self.rutaJuego, self.archivo))
+        self.t = threading.Thread(target=self.gestorArchivo.guardarDatosIniciales, args=(self.rutaJuego, self.archivo, self.datos))
         self.t.start()
             
         time.sleep(self.duracion)
+        
+        # Detengo la grabacion
+        self.gestorArchivo.setCloseThread(True)
+        # Detengo el Juego
+        os.system('taskkill /f /im "Cat Mario.exe"')
+
+        time.sleep(1)
+        # Creo el archivo limpio
+        self.gestorArchivo.convertirArchivo(self.rutaJuego, self.rutaJuegoFormato, self.archivo + ".txt")
+        # Crear la grafica con el archivo ya formateado
+        self.gestorArchivo.crearGrafica(self.rutaJuegoFormato, self.rutaJuegoGrafica, self.archivo)
+        self.gestorArchivo.setCloseThread(False)
+
+    def ejecutarCatMario(self):
+        actual = os.getcwd()
+        os.chdir(actual + '\\JuegoCatMario')
+        os.system('"' + actual + '\\JuegoCatMario\\Cat Mario.exe"')
+
+    def presentarContenidoMatematico(self):    
+        self.ventanaTestMatematico = TestMatematico.TestMatematico(
+            carpeta=self.rutaTestMatematico, rutaFormato=self.rutaTestMatematicoFormato, rutaGrafica=self.rutaTestMatematicoGrafica, name=self.datos, archivo=self.rutaTestMatematicoResultado + self.archivo)
+        self.children.append(self.ventanaTestMatematico)
+        
+        # Se crea el hilo y se ejecuta
+        self.testMatematico = threading.Thread(target=self.gestorArchivo.guardarDatosIniciales, args=(self.rutaTestMatematico, self.archivo, self.datos))
+        self.testMatematico.start()
+        
+        self.stopTestMatematico = threading.Thread(target=self.detenerProcesos, args=())
+        self.stopTestMatematico.start()
+        
+    def detenerProcesos(self):
+        time.sleep(self.duracion)
+        print "Se detiene"
+        self.ventanaTestMatematico.detenerTest()
         # Detengo la grabacion
         self.gestorArchivo.setCloseThread(True)
         time.sleep(1)
         # Creo el archivo limpio
-        self.gestorArchivo.convertirArchivo(self.rutaJuego, self.rutaJuegoFormato, self.archivo+".txt")
+        self.gestorArchivo.convertirArchivo(self.rutaTestMatematico, self.rutaTestMatematicoFormato, self.archivo + ".txt")
         # Crear la grafica con el archivo ya formateado
-        self.gestorArchivo.crearGrafica(self.rutaJuegoFormato,self.rutaJuegoGrafica, self.archivo)
-        self.gestorArchivo.setCloseThread(False)
-
-    def presentarContenidoMatematico(self):
-        nuevaVentana = TestMatematico.TestMatematico(
-            name=self.datos, archivo=self.rutaTestMatematicoResultado + self.archivo)
-        self.children.append(nuevaVentana)
-        
-        # Se crea el hilo y se ejecuta
-        self.test = threading.Thread(target=self.gestorArchivo.guardarDatos, args=(self.rutaTestMatematico, self.archivo))
-        self.test.start()
-        ##################################################################################
-        #time.sleep(self.duracion)
-        # Detengo la grabacion
-        #self.gestorArchivo.setCloseThread(True)
-        # Creo el archivo limpio
-        #self.gestorArchivo.convertirArchivo(self.rutaTestMatematico, self.rutaTestMatematicoFormato, self.archivo+".txt")
-        # Crear la grafica con el archivo ya formateado
-        #self.gestorArchivo.crearGrafica(self.rutaTestMatematicoFormato,self.rutaTestMatematicoGrafica, self.archivo)
-        #self.gestorArchivo.setCloseThread(False)
+        self.gestorArchivo.crearGrafica(self.rutaTestMatematicoFormato, self.rutaTestMatematicoGrafica, self.archivo)
         
     def presentarCuestionarioEstres(self):
         nuevaVentana = CuestionarioEstres.CuestionarioEstres(
@@ -177,11 +185,6 @@ class MenuUsuario(QtGui.QWidget):
         nuevaVentana = CuestionarioPuntuacion.CuestionarioPuntuacion(
             name=self.datos, archivo=self.rutaCuestionarioPuntuacion + self.archivo)
         self.children.append(nuevaVentana)
-
-    def ejecutarCatMario(self):
-        actual = os.getcwd()
-        os.chdir(actual + '\\JuegoCatMario')
-        os.system('"'+ actual + '\\JuegoCatMario\\Cat Mario.exe"')
 
     def salirMenuUsuario(self):
         self.close()

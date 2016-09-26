@@ -1,28 +1,77 @@
 
-#-*- coding:utf-8 -*-
-
-# import sys
+# -*- coding:utf-8 -*-
 from PyQt4 import QtGui, QtCore
-
+import threading
+import time
 
 class TestMatematico(QtGui.QWidget):
 
-    def __init__(self, name=None, archivo=None):
+    def __init__(self, carpeta=None, rutaFormato=None, rutaGrafica=None, name=None, archivo=None):
         super(TestMatematico, self).__init__()
         self.children = []
+        self.rutaTestMatematico = carpeta
+        self.rutaTestMatematicoFormato = rutaFormato
+        self.rutaTestMatematicoGrafica = rutaGrafica
         self.datos = name
         self.archivo = archivo
         self.initUI()
 
     def definirMedida(self):
-        self.tamCombo = 40
+        self.tamCombo = 80
         self.respuesta = []
 
     def cargarArreglo(self):
-        self.pregunta = [u"1. 2x1:", u"2. 3+1:", u"3. Efectuar un examen escrito:", u"4. Esperar los resultados de un examen:", u"5. Suspender un examen:", u"6. Ser preguntado en clase:", u"7. Preparar un trabajo individualmente:", u"8. Preparar un trabajo en grupo:",
-                         u"9. Preguntar una duda a un profesor en clase (en público):", u"10. Preguntar una duda a un profesor fuera de clase\n      (en privado):", u"11. Hablar con un profesor sobre tus problemas académicos \n      (en privado, desacuerdos sobre resultados de exámenes\n      demanda de orientación):", u"12. Participar en un seminario (discusión de temas en grupos\n      reducidos):", u"13. Efectuar actividades de prácticas:", u"14. Exponer un tema en clase:", u"15. Discutir problemas académicos con compañeros (en\n      asambleas o reuniones):", u"16. Entrar o salir del aula cuando la clase ya ha empezado:", u"17. Excesiva cantidad de materia para estudio:", u"18. Falta de tiempo para estudiar:"]
+        self.pregunta = [u"1. Sigue la serie: 27, 19, 34, 26, 41, 33, ?", 
+                         u"2. Continúa la secuencia: 16, 2, 32, 2, 64, 2, ?", 
+                         u"3. Sigue la secuencia: 3, 30, 6, 30, 9, 90, ?", 
+                         u"4. Sigue la secuencia: 3, 6, 9, 12, 15, 18, 21, ?", 
+                         u"5. Sigue la secuencia: 6, 6, 10, 5, 14, 4, ?", 
+                         u"6. ¿Qué número sigue la secuencia?: 25, 50, 100, 200, 400, ?", 
+                         u"7. Sigue la secuencia: 3, 7, 21, 147, 3087, ?", 
+                         u"8. Encuentra el número que sigue la secuencia: 25, 10, 15, 5, 10, ?",
+                         u"9. Indica qué par de números siguen la serie: 7, 3, 6, 3, 5, 3, ?, ?", 
+                         u"10. Qué número sigue la secuencia: 4, 3, 3, 2, 2, ?", 
+                         u"11. Continúa la secuencia: 7, 21, 84 ,420, 2520, ?", 
+                         u"12. Continúa la secuencia: 120, 240, 720, 2880, ?", 
+                         u"13. Sigue la serie: 18, 36, 11, 22, 17, 34, 9, ?", 
+                         u"14. Continúa la secuencia: 14, 15, 28, 30, 56, ?", 
+                         u"15. Sigue la serie: 24, 34, 44, 54, 64, ?", 
+                         u"16. ¿Qué número continúa la serie?: 9, 17, 8, 14, 7, 11, 6, 8, ?", 
+                         u"17. Encuentra el número que sigue la secuencia: 2, 6, 12, 36, 72,\n      216, ?", 
+                         u"18. Sigue la secuencia: 42, 14, 35, 21, 28, 28, ?",
+                         u"19. Indica qué par de números siguen la serie: 52, 53, 55, 58, 62,\n      67, ? ,?",
+                         u"20. Sigue la serie: (2-4-1), (4-12-4), (?-?-?), (8-40-40)",
+                         u"21. Encuentra el número que sigue la secuencia: 18, 32, 60, 116,\n      228, ?",
+                         u"22. ¿Qué número continúa la serie: 6, 3, 8, 4, 10, 5, 12, 6, 14, ?",
+                         u"23. Sigue la secuencia: 3, 21, 147, 1029, ?",
+                         u"24. En la siguiente serie hay un número equivocado que no \n      corresponde con la serie. Señala el número que debería\n      ir en su lugar: 5, 10, 12, 24, 26, 28, 54, 108, 110",
+                         u"25. Completa la serie: 4, 8, 11, 7, 14, ?, ?, 26, 29, ?"]
 
-        self.respuestaCombo = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+        self.respuestaCombo = [[" ","48","52","24","66"],
+                               [" ","128","172","254","196"],
+                               [" ","120","100","12","110"],
+                               [" ","24","25","27","26"],
+                               [" ","18","3","13","16"],
+                               [" ","600","700","800","1600"],
+                               [" ","453789","354796","673459","534679"],
+                               [" ","5","15","0","20"],
+                               [" ","3,3", "3,4", "4,3", "1,2"],
+                               [" ","4","1","3","2"],
+                               [" ","8820","10080","17640","5040"],
+                               [" ","5760","11520","8640","14400"],
+                               [" ","15","18","27","36"],
+                               [" ","60","66","58","86"],
+                               [" ","74","72","70","71"],
+                               [" ","10","9","12","5"],
+                               [" ","432","420","288","252"],
+                               [" ","14","19","21","22"],
+                               [" ","72,79","71,79","73,80","72,75"],
+                               [" ","(8-24-12)","(6-24-12)","(6-20-12)","(8-24-10)"],
+                               [" ","452","456","624","312"],
+                               [" ","16","8","6","7"],
+                               [" ","6300","5200","1703","7203"],
+                               [" ","6","48","52","105"],
+                               [" ","10,14,24", "10,20,33", "17,13,25", "18,14,25"]]
 
     def initUI(self):
         # Medidas de los combos y margen
@@ -41,31 +90,28 @@ class TestMatematico(QtGui.QWidget):
 
         labelInstruccion = QtGui.QLabel(instr)
 
-        #Container Widget
+        # Container Widget
         self.widget = QtGui.QWidget()
         # Layout of Container Widget
         layout = QtGui.QVBoxLayout(self)
 
         # Preguntas del cuestionario
+        contadorRespuesta = 0
         for pregunta in self.pregunta:
 
             labelPregunta = QtGui.QLabel(pregunta)
 
             comboRespuesta = QtGui.QComboBox()
-            comboRespuesta.addItems(self.respuestaCombo)
+            comboRespuesta.addItems(self.respuestaCombo[contadorRespuesta])
+            print contadorRespuesta, self.respuestaCombo[contadorRespuesta]
+            contadorRespuesta += 1
             comboRespuesta.setMaximumWidth(self.tamCombo)
-
-            comboRespuestaUltimaSemana = QtGui.QComboBox(self)
-            comboRespuestaUltimaSemana.setMaximumWidth(self.tamCombo)
-
             self.respuesta.append(comboRespuesta)
-            self.respuesta.append(comboRespuestaUltimaSemana)
-
+            
             hbox = QtGui.QHBoxLayout()
             hbox.addWidget(labelPregunta)
             hbox.addWidget(comboRespuesta)
-            hbox.addWidget(comboRespuestaUltimaSemana)
-
+            
             hboxSpace = QtGui.QHBoxLayout()
             hboxSpace.addWidget(QtGui.QLabel(" "))
 
@@ -82,12 +128,12 @@ class TestMatematico(QtGui.QWidget):
 
         btnWidget = QtGui.QWidget()
         layoutBtn = QtGui.QVBoxLayout(self)
-        btnEnviar = QtGui.QPushButton('Enviar', self)
-        btnEnviar.clicked.connect(self.ingresarRespuestas)
-        btnEnviar.setMinimumSize(130, 35)
+        #btnEnviar = QtGui.QPushButton('Enviar', self)
+        #btnEnviar.clicked.connect(self.ingresarRespuestas)
+        #btnEnviar.setMinimumSize(130, 35)
         hBtnBox = QtGui.QHBoxLayout()
         hBtnBox.addStretch(1)
-        hBtnBox.addWidget(btnEnviar)
+        #hBtnBox.addWidget(btnEnviar)
         layoutBtn.addLayout(hBtnBox)
         btnWidget.setLayout(layoutBtn)
 
@@ -103,30 +149,14 @@ class TestMatematico(QtGui.QWidget):
         self.setWindowTitle('Test Matematico')
         self.setWindowIcon(QtGui.QIcon('Icon/icon.jpg'))
         self.show()
+        
+    def detenerTest(self):
+        datos = ""
+        print len(self.respuesta)
+        for respuesta in range(0, len(self.respuesta)):
+            datos += str((self.respuesta[respuesta]).currentText()) + "\n"
 
-    def ingresarRespuestas(self):
-
-        msg = QtGui.QMessageBox()
-        msg.setWindowIcon(QtGui.QIcon('Icon/icon.jpg'))
-        msg.setWindowTitle('Guardar Cuestionario')
-        msg.setText(u'¿Has terminado?')
-        msg.addButton(QtGui.QPushButton('Aceptar'), QtGui.QMessageBox.YesRole)
-        msg.addButton(QtGui.QPushButton('Cancelar'), QtGui.QMessageBox.NoRole)
-
-        result = msg.exec_()
-
-        if result == 0:
-            datos = ""
-            for respuesta in range(0, len(self.respuesta) - 1, 2):
-                datos += str((self.respuesta[respuesta]).currentText()) + "," + str(
-                    (self.respuesta[respuesta + 1]).currentText()) + "\n"
-
-            file = open(self.archivo + ".txt", 'w')
-            file.write(datos)
-            file.close()
-            self.close()
-
-    def keyPressEvent(self, event):
-    	if event.key() == 16777220:
-    		self.ingresarRespuestas()
-
+        file = open(self.archivo + ".txt", 'w')
+        file.write(datos)
+        file.close()
+        self.close()

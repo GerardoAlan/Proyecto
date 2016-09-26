@@ -1,9 +1,6 @@
 
-#-*- coding:utf-8 -*-
-
-# import sys
+# -*- coding:utf-8 -*-
 from PyQt4 import QtGui, QtCore
-
 
 class CuestionarioEstres(QtGui.QWidget):
 
@@ -19,8 +16,24 @@ class CuestionarioEstres(QtGui.QWidget):
         self.respuesta = []
 
     def cargarArreglo(self):
-        self.pregunta = [u"1. Preparar un examen inmediato:", u"2. Efectuar un examen oral:", u"3. Efectuar un examen escrito:", u"4. Esperar los resultados de un examen:", u"5. Suspender un examen:", u"6. Ser preguntado en clase:", u"7. Preparar un trabajo individualmente:", u"8. Preparar un trabajo en grupo:",
-                         u"9. Preguntar una duda a un profesor en clase (en público):", u"10. Preguntar una duda a un profesor fuera de clase\n      (en privado):", u"11. Hablar con un profesor sobre tus problemas académicos \n      (en privado, desacuerdos sobre resultados de exámenes\n      demanda de orientación):", u"12. Participar en un seminario (discusión de temas en grupos\n      reducidos):", u"13. Efectuar actividades de prácticas:", u"14. Exponer un tema en clase:", u"15. Discutir problemas académicos con compañeros (en\n      asambleas o reuniones):", u"16. Entrar o salir del aula cuando la clase ya ha empezado:", u"17. Excesiva cantidad de materia para estudio:", u"18. Falta de tiempo para estudiar:"]
+        self.pregunta = [u"1. Preparar un examen inmediato:", 
+                         u"2. Efectuar un examen oral:", 
+                         u"3. Efectuar un examen escrito:", 
+                         u"4. Esperar los resultados de un examen:", 
+                         u"5. Suspender un examen:", 
+                         u"6. Ser preguntado en clase:", 
+                         u"7. Preparar un trabajo individualmente:", 
+                         u"8. Preparar un trabajo en grupo:",
+                         u"9. Preguntar una duda a un profesor en clase (en público):", 
+                         u"10. Preguntar una duda a un profesor fuera de clase\n      (en privado):", 
+                         u"11. Hablar con un profesor sobre tus problemas académicos \n      (en privado, desacuerdos sobre resultados de exámenes\n      demanda de orientación):", 
+                         u"12. Participar en un seminario (discusión de temas en grupos\n      reducidos):", 
+                         u"13. Efectuar actividades de prácticas:", 
+                         u"14. Exponer un tema en clase:", 
+                         u"15. Discutir problemas académicos con compañeros (en\n      asambleas o reuniones):", 
+                         u"16. Entrar o salir del aula cuando la clase ya ha empezado:", 
+                         u"17. Excesiva cantidad de materia para estudio:", 
+                         u"18. Falta de tiempo para estudiar:"]
 
         self.respuestaCombo = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
         self.ultimaSemanaCombo = ['SI', 'NO']
@@ -42,7 +55,7 @@ class CuestionarioEstres(QtGui.QWidget):
 
         labelInstruccion = QtGui.QLabel(instr)
 
-        #Container Widget
+        # Container Widget
         self.widget = QtGui.QWidget()
         # Layout of Container Widget
         layout = QtGui.QVBoxLayout(self)
@@ -102,7 +115,7 @@ class CuestionarioEstres(QtGui.QWidget):
 
         # Creando la ventana
         self.setFixedSize(470, 530)
-        self.setWindowTitle('Cuestionario')
+        self.setWindowTitle(u'Cuestionario Estrés')
         self.setWindowIcon(QtGui.QIcon('Icon/icon.jpg'))
         self.show()
 
@@ -119,7 +132,7 @@ class CuestionarioEstres(QtGui.QWidget):
 
         if result == 0:
             datos = ""
-            for respuesta in range(0, len(self.respuesta) - 1, 2):
+            for respuesta in range(0, len(self.respuesta)):
                 datos += str((self.respuesta[respuesta]).currentText()) + "," + str(
                     (self.respuesta[respuesta + 1]).currentText()) + "\n"
 
